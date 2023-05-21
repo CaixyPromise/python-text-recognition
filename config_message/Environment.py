@@ -1,0 +1,5 @@
+ACCESS_KEY = "Text Recognition"  #  校权ID
+
+
+PERMANENT_SESSION_LIFETIME = 86400
+PHOTO_TIMEOUT = 600 # s
