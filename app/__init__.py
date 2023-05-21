@@ -1,7 +1,7 @@
 from flask import Flask
 from config import config_map
 from flask_session import Session
-from flask_wtf import CSRFProtect
+# from flask_wtf import CSRFProtect
 
 # 创建redis
 redis_store = None
@@ -28,7 +28,7 @@ def create_app(config_name):
     # 利用flask-session，将session数据保存到redis中
     Session(app)
     # flask-csrf防护
-    CSRFProtect(app)
+    # CSRFProtect(app)
 
     # 注册
     from app import public

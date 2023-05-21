@@ -1,3 +1,7 @@
 .git/
 venv/
 **/__pycache__/
+output.wav
+result.jpg
+test.py
+zh_dict/

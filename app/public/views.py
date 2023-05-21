@@ -1,12 +1,14 @@
 from app.public import public
-from flask import render_template
-
-from config_message.Environment import ACCESS_KEY
-from paddleocr import PaddleOCR, draw_ocr
+from flask import render_template, request, send_file
+from config_message.Environment import SECRET_KEY
+from paddleocr import PaddleOCR, draw_ocr 
 import pyttsx3
 import os
+# from flask_wtf import csrf
+from time import sleep
 ocr = PaddleOCR(use_gpu=True)
 
+# @csrf.exempt
 @public.route('/ocr', methods=['POST'])
 def upload_file():
     if 'file' not in request.files:
@@ -20,11 +22,14 @@ def upload_file():
     text = ' '.join([line_info[-1][0] for line_info in result])
 
     engine = pyttsx3.init()
-    engine.save_to_file(text, 'output.mp3')
+    save_path = os.path.join(os.getcwd(), 'output.mp3')
+    print(f'save_path: {save_path}')
+    engine.save_to_file(text, save_path)
     engine.runAndWait()
 
-    os.remove(file.filename)  # 删除用户上传的图片
-    return send_file('output.mp3', as_attachment=True)  # 将语音文件发送回用户
+    while not os.path.exists(save_path):
+        sleep(0.5)
 
-if __name__ == "__main__":
-    app.run(port=5000, debug=True)
+    os.remove(file.filename)  # 删除用户上传的图片
+    return send_file(save_path, as_attachment=True)  # 将语音文件发送回用户
+

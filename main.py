@@ -26,5 +26,5 @@ def create_admin():
 
 
 if __name__ == '__main__':
-    server = pywsgi.WSGIServer(('127.0.0.1', 8870), manager.app)
+    server = pywsgi.WSGIServer(('0.0.0.0', 6006), manager.app)
     server.serve_forever()
