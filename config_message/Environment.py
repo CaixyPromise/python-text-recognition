@@ -6,6 +6,7 @@ PHOTO_TIMEOUT = 600 # s
 
 SAVE_PATH = '/root/text_rec/SAVE_PATH/'
 
+# 科大讯飞接口信息
 APPID = 'f695b8f9'
 APISecret = 'OTllNjgzNWM0NGYxOWQ1ZDg1YTgzM2Fl'
 APIKey = '43171a0c63ce42b1a4618aad66428152'
