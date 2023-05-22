@@ -26,12 +26,31 @@
 import requests
 
 url = 'http://127.0.0.1:6006/ocr'
-files = {'file': open(r'./imgs/11.jpg', 'rb')}
+file_path = './imgs/11.jpg'
+access_key = 'Text Recognition'
+download_url = 'http://127.0.0.1:6006/download'
+
+files = {
+    'file': open(file_path, 'rb')
+}
+headers = {
+    'Content-Type': 'application/json'
+}
+json_data = {
+    'name': 'example_filename'
+}
 
 response = requests.post(url, files=files)
 
 if response.status_code == 200:
-    with open('output.mp3', 'wb') as f:
-        f.write(response.content)
+    ret_json = response.json()
+    print(f'response return: {response.json}')
+    json_data['name'] = ret_json['message']
+    response = requests.post(download_url, headers = headers, json = json_data)
+    if (response.status_code == 200):
+        with open(f"{ret_json['message']}.wav", 'wb') as f:
+            f.write(response.content)
+    else:
+        print("Error:", response.status_code, response.text)
 else:
     print("Error:", response.status_code, response.text)

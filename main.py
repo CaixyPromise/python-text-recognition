@@ -12,19 +12,9 @@ Migrate(app)
 @manager.command
 def create_admin():
     pass
-    
-    # from app.models import Admin
-    # from config_message.Environment import ADMIN_USERNAME, ADMIN_PASSWORD, ADMIN_ID
-    # try:
-    #     admin_new = Admin(id = ADMIN_ID, username=ADMIN_USERNAME, password=ADMIN_PASSWORD, )
-    #     db.session.add(admin_new)
-    #     db.session.commit()
-    #     print("初始化成功")
-    # except:
-    #     print("初始化失败")
-    #     db.session.rollback()
-
 
 if __name__ == '__main__':
-    server = pywsgi.WSGIServer(('0.0.0.0', 6006), manager.app)
+    server_port = 6006
+    server = pywsgi.WSGIServer(('0.0.0.0', server_port), manager.app)
+    print(f"Server is running on port {server_port}")  # 输出当前接口端口号
     server.serve_forever()
